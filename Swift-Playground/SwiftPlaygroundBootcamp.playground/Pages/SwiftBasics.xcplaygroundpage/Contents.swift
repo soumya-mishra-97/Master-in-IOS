@@ -46,83 +46,128 @@ var a = "Soumya"
 var b = "Soumya"
 print(a == b) /// true
 
-///Classes are reference types, so two variables can refer to the same object in memory.
-///Structs are value types, meaning each variable gets its own independent copy.
-/// Class -> Refrence type (refrence the value)
-class Person1{
-    var name:String
-    init(name: String) {
-        self.name = name
+/// Functions
+func introduction(){
+    print("Hello John".uppercased())
+    greetings()
+}
+
+func greetings(){
+    print("Greetings.".uppercased())
+}
+
+/// Private variable of function: we can't access this varibale outside of the function
+func userDetails(){
+    let userName = "Kevin"
+    print(userName)
+}
+
+introduction()
+userDetails()
+
+/// Return function
+let num1 = 5
+let num2 = 10
+
+/// Function is callable and can take parameters.
+func addNum() -> Int {
+    return num1 + num2
+}
+print(addNum())
+
+// Function with parameters
+func add(a: Int, b: Int) -> Int {
+    return a + b
+}
+print(add(a: num1, b: num2))
+
+/// Computed Property (No Parameters Needed)
+/// You access it like a variable (print(add)), and it automatically executes the logic.
+/// If you don't need to pass any data into a function, you can use a computed variable (property) to execute the code.
+/// However, if you need to pass data, you should use a function instead.
+var add: Int {
+    return num1 + num2
+}
+print(add)
+
+func showUserDashboard(){
+    let userDrugTest = true
+    let userNonCompletionAgreement = false
+    
+    let status = checkUserStatus(didTakeDrugTest: userDrugTest, didCheckNonCompletionAgreement: userNonCompletionAgreement)
+    if status == true{
+        print("USER SELECTED")
+    }else{
+        print("USER SELECTED FAILED")
     }
 }
 
-var person1 = Person1(name: "Kevin")
-var person2 = Person1(name: "Kevin")
-/// person3 assigned to the same location as person1 because class is the refrence type
-/// person3 refrence to person1
-var person3 = person1
-print(person1.name) ///Kevin
-print(person2.name) ///Kevin
-print(person3.name) ///Kevin
-///Identical (===) -> can compare the memory location
-///=== is for classes (reference comparison). -> in Struct it's not applicable
-///== is for both classes and structs (value comparison).
-print(person1 === person3) /// true
-/// person3 modified the value so person1 value alos changed because person3 refrence to person1
-person3.name = "John"
-print(person3.name) ///John
-print(person1.name) ///John
-print(person1 === person2) /// false
-print(person1 === person3) /// true
-
-/// Struct -> Value type (copy the value)
-struct Person2{
-    var name: String
-}
-
-let p1 = Person2(name: "Kevin")
-let p2 = Person1(name: "Kevin")
-print(p1.name) ///Kevin
-print(p2.name) ///Kevin
-/// p3 copy value from p1 because struct is the value type
-var p3 = p1
-print(p3.name) ///Kevin
-/// If p3 value modified then p1 value is not chnaged it's remain same until p1 value modified manually
-/// only copy value is cahnged (p3)
-p3.name = "John"
-print(p3.name) ///John
-print(p1.name) ///Kevin
-
-/// String Extension
-extension String{
-    var upperCasesString: String{
-        self.uppercased()
+func checkUserStatus(didTakeDrugTest: Bool, didCheckNonCompletionAgreement: Bool) -> Bool{
+    if didTakeDrugTest && didCheckNonCompletionAgreement {
+        return true
+    }else{
+        return false
     }
 }
 
-let str = "Swift"
-print(str.upperCasesString)
+showUserDashboard()
 
-/// Int Extension
-extension Int{
-    func add(_ num: Int) -> Int {
-        return self + num
+/// Guard vs If Statement
+/// guard statement: Ensures that a condition must be true; if not, it executes the else block and exits the function.
+/// if statement: Checks a condition and executes the if block if true; otherwise, it executes the else block.
+func filmRelease() -> String{
+    let movieTitle = "Black Panther"
+    
+    /// If movieTitle equal to "Black Panther"
+    if movieTitle == "Black Panther"{
+        return "AVENGERS-2 PART" /// [O/p -> AVENGERS PART]
+    }
+    return "NOT THE AVENGERS-2 PART"
+}
+
+print(filmRelease())
+
+func movieRelease(){
+    var movieTitle = "IRON MAN"
+    
+    /// make sure movie title should be equal to Black Panther
+    /// if it's false then go to the else statement -> print statement is called after that return statement called
+    /// after that code is not executed
+    guard movieTitle == "Black Panther" else {
+        print("NOT THE AVENGERS-2 PART")
+        return
+    }
+    
+    print("PART OF THE AVENGERS-2")
+}
+
+movieRelease()
+
+/// Guard Statement
+func checkIsMovieUnderMarvel1() -> Bool{
+    var movieTitle = "IRON MAN"
+    
+    guard movieTitle == "IRON MAN" else {
+        print("NOT PART OF THE AVENGERS-2")
+        return false
+    }
+    print("PART OF THE AVENGERS-1")
+    return true
+}
+
+checkIsMovieUnderMarvel1()
+
+/// If Statement
+func checkIsMovieUnderMarvel2() -> Bool{
+    var movieTitle = "IRON MAN"
+    
+    if movieTitle == "IRON MAN"{
+        print("NOT PART OF THE AVENGERS-2")
+        return false
+    }else{
+        print("PART OF THE AVENGERS-2")
+        return true
     }
 }
 
-let num = 3.add(7)
-print(num)
-
-/// Date Extension
-extension Date {
-    func formattedString(format: String = "yyyy-MM-dd HH:mm:ss") -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = format
-        return formatter.string(from: self)
-    }
-}
-
-let currentDate = Date()
-print(currentDate.formattedString())
-print(currentDate.formattedString(format: "MMM dd, yyyy"))
-
+checkIsMovieUnderMarvel2()
