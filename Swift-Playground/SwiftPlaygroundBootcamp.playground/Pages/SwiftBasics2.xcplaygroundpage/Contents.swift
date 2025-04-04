@@ -37,4 +37,33 @@ getUserDetails()
 
 ///`Defer Statement`
 /// Executed in last
+func def1() {
+    defer {
+        print("2")
+        print("-------")
+    }
+    print("1")
+}
+
+def1()
+
 /// `Layered Defer Statement`
+func def2() {
+    print("1")
+    defer {
+        print("7")
+    }
+    print("2")
+    defer {
+        print("6")
+    }
+    print("3")
+    defer {
+        print("5")
+    }
+    print("8")
+    print("4")
+}
+
+def2()
+
