@@ -1,6 +1,6 @@
 import Foundation
 
-///Classes are reference types, so two variables can refer to the same object in memory.
+/// Classes are reference types, so two variables can refer to the same object in memory.
 /// Structs are value types, meaning each variable gets its own independent copy.
 /// Class -> Refrence type (refrence the value)
 class Person1{

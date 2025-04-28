@@ -85,6 +85,21 @@ print(add(a: num1, b: num2))
 /// You access it like a variable (print(add)), and it automatically executes the logic.
 /// If you don't need to pass any data into a function, you can use a computed variable (property) to execute the code.
 /// However, if you need to pass data, you should use a function instead.
+
+/// Computed Propoties
+struct Rectangle {
+    var width: Double
+    var height: Double
+    
+    var area: Double {
+        return width * height
+    }
+}
+
+var rect = Rectangle(width: 2, height: 2)
+var rectArea = rect.area
+print(rectArea) /// 4.0
+
 var add: Int {
     return num1 + num2
 }

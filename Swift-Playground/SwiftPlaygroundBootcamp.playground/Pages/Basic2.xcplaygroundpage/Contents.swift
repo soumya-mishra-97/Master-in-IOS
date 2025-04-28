@@ -67,3 +67,22 @@ func def2() {
 
 def2()
 
+/// Generic Types
+func doubleVal(_ num: inout Int){
+    return num *= 2
+}
+var n = 5
+doubleVal(&n)
+print("value of n:\(n)")
+
+/// Swap value
+func swapValue<T>(_ a: inout T, _ b: inout T){
+    var temp = a
+    a = b
+    b = temp
+}
+var a = 15, b = 20
+swapValue(&a, &b)
+print("Swap value a:\(a), b:\(b)")
+
+
