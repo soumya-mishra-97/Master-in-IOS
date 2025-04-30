@@ -85,4 +85,91 @@ var a = 15, b = 20
 swapValue(&a, &b)
 print("Swap value a:\(a), b:\(b)")
 
+/// `Dictionaries`
+/// Stored the value as `key-value` pair
+/// It's the `value types`
+/// `Value types means : if you are changing a varibale then it doesn't imapct another varibale`
+/// `it maintains the copies eachother`
+/// But `Reference types means : if you are changing a varaible it does impact anaother varibale.`
 
+var dict1: [String: String] = ["Audi": "R8", "BMW": "X3", "Merceedez": "Class-430"]
+print(dict1)
+print(dict1["Audi"] ?? "Unknown")
+dict1["BMW"] = nil
+print(dict1)
+print(dict1["BMW"] ?? "Unknown")
+dict1["BMW"] = "X5"
+print(dict1)
+print(dict1["BMW"] ?? "Unknown")
+
+/// Value types
+var dict2 = dict1
+dict2["Merceedez"] = "G-Wagon"
+print("Printing merceedez value from dict1 \(dict1["Merceedez"] ?? "Unknown")")
+print("Printing merceedez value from dict2 \(dict2["Merceedez"] ?? "Unknown")")
+
+/// `Sets`
+/// Collection types also provides the unordered values
+/// Maintain the uniqueness like remove the duplicate values from array.
+/// Return the `unique data` in collection.
+/// `Array` maintained th sequential order but Set doesn't.
+/// If you need uniqune data but order isn't mattererd then used `Set`
+/// but if you need sequential order with unique data then used `Array with custom coding`
+
+/// `Array doesn't removes the duplicate value and order does matter`
+var vegetable: Array = ["Carrot", "Potato", "Onion", "Carrot", "Potato"]
+print(vegetable)
+
+/// `Sets removes the duplicate value and order doesn't mattered here`
+var fruit1: Set<String> = ["Apple", "Banana", "Orange", "Apple", "Banana"]
+print(fruit1)
+var fruit2: Set<String> = ["Apple", "Grapes"]
+print(fruit2)
+
+var commonFruits = fruit1.intersection(fruit2)
+print("Common Fruits: \(commonFruits)")
+
+var differFruits = fruit1.symmetricDifference(fruit2)
+print("Different Fruits: \(differFruits)")
+
+/// Custom Object
+/// `Hashable`: is a protocol which provides unique hash value of each object
+/// `Fast comparision` between objects.
+/// Used to stored in Sets
+/// Create the custom object and conforms hashable protocol
+struct Person: Hashable {
+    let name: String
+    let age: Int
+}
+
+let p1 = Person(name: "Steve", age: 28)
+let p2 = Person(name: "Max", age: 28)
+
+let objectPerson: Set<Person> = [p1, p2]
+
+for person in objectPerson {
+    print(person)
+    print("Name: \(person.name), Age: \(person.age)")
+}
+
+/// `Identifiable`: `Automatically handles the ID`
+/// Provides the `unique identifier` of each object
+/// Used in List and ForEach
+/// Avoids the manual id in UI Lits
+/// Swift detects id automatically.
+
+struct User: Identifiable {
+    let id: UUID /// Automatically handles the ID here
+    let name: String
+}
+
+let users: [User] = [
+    .init(id: UUID(), name: "Alice"),
+    .init(id: UUID(), name: "Bob"),
+    .init(id: UUID(), name: "Charlie"),
+]
+
+for user in users {
+    print(user)
+    print("Name: \(user.name)")
+}

@@ -1,21 +1,47 @@
 import Foundation
 
 
-/// Extension functions used to add the new functionalities in existing type.
-/// Add functionality without modifying existing code
-/// Code clean
-/// Reuse common functions across your app
-
+/// `Extension`
+/// Add the functionality in existing tupe with out modifying the originals code.
+/// Used to orgnaise the code and separate the code
 
 /// String Extension
 extension String{
-    var upperCasesString: String{
-        self.uppercased()
+    func uppercaseExtension() -> String {
+        return self.uppercased()
+    }
+    
+    func lowercaseExtension() -> String {
+        return self.lowercased()
     }
 }
 
-let str = "Swift"
-print(str.upperCasesString)
+var str = "Hello, World!"
+print(str.uppercaseExtension())
+print(str.lowercaseExtension())
+
+/// Double Extension
+extension Double {
+    func squareRoot() -> Double {
+        return self * self
+    }
+    
+    func celciusToFahrenheit() -> Double {
+        return ((self * 1.8000) + 32).rounded()
+    }
+    
+    func fahrenheitToCelcius() -> Double {
+        return ((self - 32) / 1.8000).rounded()
+    }
+}
+
+var num: Double = 4
+var celsius: Double = 23
+var farenheit: Double = 73
+
+print(num.squareRoot())
+print(celsius.celciusToFahrenheit())
+print(farenheit.fahrenheitToCelcius())
 
 /// Int Extension
 extension Int{
@@ -24,8 +50,8 @@ extension Int{
     }
 }
 
-let num = 3.add(7)
-print(num)
+let number = 3.add(7)
+print(number)
 
 /// Date Extension
 extension Date {
@@ -40,3 +66,29 @@ let currentDate = Date()
 print(currentDate.formattedString())
 print(currentDate.formattedString(format: "MMM dd, yyyy"))
 
+/// `Stored property in extension`: `Not allowed`
+/// `Computed property / Method in extension`: `Allowed`
+
+struct Person {
+    var fname: String
+    var lName: String
+}
+
+extension Person {
+    /// Not allowed: Cannot add a stored property
+    //var age: Int
+    
+    /// Allowed: Computed property
+    var fullName: String {
+        return "\(fname) \(lName)"
+    }
+    
+    /// Allowed: Method
+    func greet() -> String {
+        return "Hello, my name is \(fullName)."
+    }
+}
+
+let person1 = Person(fname: "Steven", lName: "Doe")
+print(person1.fullName) /// Steven Doe
+print(person1.greet()) /// Output: Hello, my name is Steven Doe.

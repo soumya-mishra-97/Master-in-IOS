@@ -16,7 +16,7 @@ func isPaalindrome(_ input: String) -> Bool {
     }
     return true
 }
- 
+
 print(isPaalindrome("Jyoti"))
 print(isPaalindrome("12321"))
 

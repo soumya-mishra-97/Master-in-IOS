@@ -5,8 +5,8 @@ class A{
     var b: B?
     
     init(a: String) {
-       self.a = a
-       print("A is initialized")
+        self.a = a
+        print("A is initialized")
     }
     
     deinit {
@@ -18,10 +18,10 @@ class B {
     weak var a: A?
     
     init() {
-       print("B is initialized")
+        print("B is initialized")
         
     }
-
+    
     deinit {
         print("B deinitialized")
     }
@@ -34,7 +34,7 @@ func test() {
     a.b = b
     b.a = a
 }
-    
+
 test()
 
 /// Lazy propoties when it's first accessed, not at initialization

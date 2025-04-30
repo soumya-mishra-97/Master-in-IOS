@@ -65,6 +65,41 @@ let result = addTwoNum(10, 20)
 print(result)
 
 /// Function call sequence with Clousure
+/// How impact the clousre in function sequence
+/// `name()` is a `closure` function
+func greet(isMorning: Bool, name: () -> String){
+    if isMorning{
+        print("Hello Goodmorning, \(name())")
+    }
+}
+///  In this case if `isMorning` is `false` then still `assignName is called`
+///  but it shouldn't be `assignName is called` called.
+///  so in this case `name`should be act as `clousure`
+func assignName(name: String) -> String{
+    print("assignName is called")
+    return name
+}
 
+greet(isMorning: true) {
+    assignName(name: "Steve")
+}
 
+greet(isMorning: false) {
+    assignName(name: "Nancy")
+}
 
+//greet(isMorning: true, name: assignName(name: "Steve"))
+//greet(isMorning: false, name: assignName(name: "Nancy"))
+
+/// `Autoclousre` -> You can avoid the clousure syntax with the help of using autoclousure expression
+/// Wraps the expression inside a clousure
+/// You can pass the arguments without using `{}`
+/// Use @autoclosure anotation
+/// Used to delayed the execution
+/// But it's hanrd to undertsnad that's why you can avoid it. impacts the readability.
+/// As a developer if i first time see the autoclousure it's looking as a just paramters but it's a clousure that's wy littlebit confused on that basis.
+
+func greetMsg(message: @autoclosure () -> String){
+    print(message())
+}
+greetMsg(message: "Hello Steve.")
