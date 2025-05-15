@@ -1,35 +1,34 @@
 import Foundation
 
-/// MARK: Tight Coupling vs Loose Couplinhg
+// MARK: - Tight Coupling vs Loose Coupling
 
-/// MARK: - Tight Coupling Example in Swift (Violation of SOLID)
+// MARK: - Tight Coupling Example in Swift (Violation of SOLID)
 
 /// Engine is a base class
-class Engine {
+class Enginee {
     func start() {
         print("Engine started")
     }
 }
 
 /// GasEngine is a subclass of Engine
-class GasEngine: Engine {
+class GasEngine: Enginee {
     override func start() {
         print("Gas Engine started")
     }
 }
 
 /// Car directly depends on a concrete Engine (tight coupling)
-class Car {
-    private let engine = Engine() // Directly instantiates a specific engine type
-    
+class TightlyCoupledCar {
+    private let engine = Enginee() // Directly instantiates a specific engine type
+
     func start() {
         engine.start()
     }
 }
 
-// Usage
-let audi = Car()
-audi.start()
+let tightCar = TightlyCoupledCar()
+tightCar.start()
 
 /*
 Tight Coupling Problems:
@@ -41,7 +40,8 @@ Violates SOLID principles:
 2. Dependency Inversion Principle (DIP): Car depends on a concrete class, not an abstraction.
 */
 
-/// MARK: - Loose Coupling Example in Swift (SOLID-compliant)
+
+// MARK: - Loose Coupling Example in Swift (SOLID-compliant)
 
 /// Engine protocol defines an abstraction
 protocol Engine {
@@ -49,7 +49,7 @@ protocol Engine {
 }
 
 /// Concrete implementation: GasEngine
-class GasEngine: Engine {
+class LooselyCoupledGasEngine: Engine {
     func start() {
         print("Gas Engine started")
     }
@@ -63,30 +63,28 @@ class ElectricEngine: Engine {
 }
 
 /// Car depends on abstraction (Engine), not on specific implementations
-class Car {
+class LooselyCoupledCar {
     private let engine: Engine
-    
+
     init(engine: Engine) {
         self.engine = engine
     }
-    
+
     func start() {
         engine.start()
     }
 }
 
-let audi = Car(engine: GasEngine())
-let tesla = Car(engine: ElectricEngine())
+// Usage
+let gasCar = LooselyCoupledCar(engine: LooselyCoupledGasEngine())
+let electricCar = LooselyCoupledCar(engine: ElectricEngine())
 
-audi.start()   /// Gas Engine started
-tesla.start()  /// Electric Engine started
+gasCar.start()       // Gas Engine started
+electricCar.start()  // Electric Engine started
 
 /*
- - Dependency Inversion Principle (DIP)
-   - Car depends on an abstraction (Engine protocol), not a concrete class.
- - Open/Closed Principle (OCP)
-   - You can add new engine types (e.g., HybridEngine) without modifying the Car class.
- - Reusability
-   - Car works with any engine that conforms to Engine, making it easily extensible.
+Benefits:
+- Dependency Inversion Principle (DIP): Car depends on an abstraction (Engine protocol), not a concrete class.
+- Open/Closed Principle (OCP): You can add new engine types (e.g., HybridEngine) without modifying the Car class.
+- Reusability and Testability: Car works with any engine that conforms to Engine, making it easily extensible and mockable.
 */
-

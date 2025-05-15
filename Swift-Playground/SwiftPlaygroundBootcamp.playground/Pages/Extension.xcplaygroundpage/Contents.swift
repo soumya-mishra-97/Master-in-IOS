@@ -1,7 +1,7 @@
 import Foundation
 
 
-/// `Extension`
+// MARK: Extension
 /// Add the functionality in existing tupe with out modifying the originals code.
 /// Used to orgnaise the code and separate the code
 
@@ -66,6 +66,7 @@ let currentDate = Date()
 print(currentDate.formattedString())
 print(currentDate.formattedString(format: "MMM dd, yyyy"))
 
+// MARK: N.B
 /// `Stored property in extension`: `Not allowed`
 /// `Computed property / Method in extension`: `Allowed`
 
@@ -92,3 +93,13 @@ extension Person {
 let person1 = Person(fname: "Steven", lName: "Doe")
 print(person1.fullName) /// Steven Doe
 print(person1.greet()) /// Output: Hello, my name is Steven Doe.
+
+enum Weather{
+    case Rainy
+    case Sunny
+    case Cloudy
+}
+
+var weather: Weather = .Rainy
+weather = .Sunny
+print(weather) 

@@ -1,5 +1,6 @@
 import Foundation
 
+//MARK: Class
 /// Classes are reference types, so two variables can refer to the same object in memory.
 /// Structs are value types, meaning each variable gets its own independent copy.
 /// Class -> Refrence type (refrence the value)
@@ -29,6 +30,7 @@ print(person1.name) ///John
 print(person1 === person2) /// false
 print(person1 === person3) /// true
 
+//MARK: Struct
 /// Struct -> Value type (copy the value)
 struct Person2{
     var name: String
@@ -47,3 +49,4 @@ p3.name = "John"
 print(p3.name) ///John
 print(p1.name) ///Kevin
 
+//MARK: Enum

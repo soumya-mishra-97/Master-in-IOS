@@ -173,3 +173,41 @@ for user in users {
     print(user)
     print("Name: \(user.name)")
 }
+
+// MARK: map, compactMap, flatMap, filter
+/// `map`: Transforms each element in a collection
+let num = [2, 4, 6]
+let squares = num.map { $0 * $0 }
+print(squares)
+
+let arr1 = ["2", "4", "A"]
+let mapped = arr1.map {Int($0)}
+print(mapped)
+
+/// `compactMap`: Same as map, but removes all nils from the result.
+/// Remove the duplicate value
+/// Sort the value
+/// Remove the nil value
+let arr2 = [1, 3, 5, 7, 9, 9, 6, 4, nil, 3, 1, nil]
+let removeDuplicate = Array(Set(arr2))
+let removeNil = removeDuplicate.compactMap { $0 }
+print(removeNil.sorted())
+
+let str = ["1", "2", "A"]
+let compacttedMap = str.compactMap{Int($0)}
+print(compacttedMap)
+
+/// `Faltmap`: Flatten Nested Structures
+/// Used to flatten a collection of collections (e.g., arrays of arrays).
+/// Can also transform elements like map, but flattens the result.
+let nested = [[1, 2], [3, 4], [5]]
+let flattened = nested.flatMap { $0 }
+print(flattened)
+
+let values = ["10",nil, "20", "abc", nil]
+let result = values.flatMap { $0 } /// So for optional conversion: use compactMap instead of flatMap.
+print(result)
+
+let files = [[1, 2], [3, 4], []]
+let allFiles = files.flatMap { $0 }
+print(allFiles)

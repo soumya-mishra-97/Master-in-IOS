@@ -1,5 +1,6 @@
 import Foundation
 
+//MARK: Reference Cycle
 class A{
     var a: String
     var b: B?
@@ -54,3 +55,20 @@ class MyClass {
 var obj: MyClass? = MyClass()
 obj?.printMsg()
 obj = nil
+
+
+class Person{
+    var name: String
+    init(name: String) {
+        self.name = name
+        print("\(name) is initialized")
+    }
+    
+    deinit {
+        print("\(name) is deallocated")
+    }
+}
+
+var p1: Person? = Person(name: "p1")
+p1?.name
+p1 = nil /// Reference count drops to 0 — instance deallocated

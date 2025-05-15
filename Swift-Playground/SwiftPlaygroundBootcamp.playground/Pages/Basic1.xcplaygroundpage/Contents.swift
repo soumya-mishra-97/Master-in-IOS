@@ -439,7 +439,7 @@ func doubleValue<T: Numeric>(_ value: T) -> T{
 var num = 2
 print(doubleValue(num)) /// 4
 
-/// `Generics` -> `Inout`
+// MARK: `Generics` -> `Inout`
 /// Inout -> Modifies the original value
 /// When calling the `inout` function use `reference operator (&)`
 /// It modifies existing value
@@ -463,3 +463,29 @@ swapValue(a: &firstNum, b: &secondNum)
 print("Swap first number: \(firstNum)") /// 5
 print("Swap second number: \(secondNum)") /// 10
 
+// MARK: Stored vs Computed propoties
+
+/// Stored propoties
+/// Stored the value in memory
+/// Value is `var` & `let` type.
+struct Stored {
+    var name: String /// Stored propoties
+}
+var s = Stored(name: "John")
+print(s.name)
+
+/// Computed propoties
+/// No memeory is reserved, it doesn't stored the value in memory
+/// it access like varibale
+/// it can be mutable (var) or imutable (let)
+struct Computed{
+  var fname: String
+  var lname: String
+  
+  var fullname: String{
+    return fname + " " + lname
+  }
+}
+
+var c = Computed(fname: "John", lname: "Doe")
+print(c.fullname)

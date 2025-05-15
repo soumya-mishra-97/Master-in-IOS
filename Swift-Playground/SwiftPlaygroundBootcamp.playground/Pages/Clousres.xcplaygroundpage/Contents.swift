@@ -1,5 +1,5 @@
 import Foundation
-/// Closure
+// MARK:  Closure
 /// Escaping Closure
 /// Non Escaping Closure
 /// Auto Closure
@@ -14,7 +14,7 @@ func addTwoNumber(_ a: Int, _ b : Int) -> Int {
 let addResult = addTwoNumber(10, 20)
 print(addResult)
 
-/// Normal Clousure
+// MARK: Default Clousure [NonEscaping]
 /// Self contained block of functionality without using func keyword
 /// Smaller syntax and used to handle the heavy opertation
 /// Usecases: network calling, async task
@@ -36,7 +36,7 @@ let mutiplyTable: (Int, Int) -> Void = {
 }
 mutiplyTable(5, 10)
 
-/// Simple Clousre (Non Escaping)
+// MARK:  Simple Clousre (Non Escaping)
 let greet = { (name: String) -> String in
     return "Hello, \(name)!"
 }
@@ -54,7 +54,7 @@ let reverseWords: (String) -> String = { input in
 }
 print(reverseWords("Hello World"))
 
-/// Typealias with Clousre
+// MARK:  Typealias with Clousre
 /// Creating the custom name of existing type
 typealias addTwoNumberClosure = (Int, Int) -> Int
 
@@ -64,7 +64,7 @@ let addTwoNum: addTwoNumberClosure = {
 let result = addTwoNum(10, 20)
 print(result)
 
-/// Function call sequence with Clousure
+// MARK:  Function call sequence with Clousure
 /// How impact the clousre in function sequence
 /// `name()` is a `closure` function
 func greet(isMorning: Bool, name: () -> String){
@@ -91,7 +91,7 @@ greet(isMorning: false) {
 //greet(isMorning: true, name: assignName(name: "Steve"))
 //greet(isMorning: false, name: assignName(name: "Nancy"))
 
-/// `Autoclousre` -> You can avoid the clousure syntax with the help of using autoclousure expression
+// MARK: `Autoclousre` -> You can avoid the clousure syntax with the help of using autoclousure expression
 /// Wraps the expression inside a clousure
 /// You can pass the arguments without using `{}`
 /// Use @autoclosure anotation
@@ -103,3 +103,28 @@ func greetMsg(message: @autoclosure () -> String){
     print(message())
 }
 greetMsg(message: "Hello Steve.")
+
+// MARK: Closure
+let add: (Int, Int) -> Int = {
+  a, b in return a + b
+}
+let sum = add(3, 4)
+print(sum)
+
+let greeting: (String) -> String = {
+  greet in return greet
+}
+print(greeting("hello"))
+
+let greet2 = {(name: String) -> String in
+  return "Hello, \(name)!"
+}
+
+print(greet2("Soumya"))
+
+/// Inline Closure
+let addition = {(a, b) -> Int in
+      return a + b
+}
+let sum1 = addition(3,2)
+print(sum1)
