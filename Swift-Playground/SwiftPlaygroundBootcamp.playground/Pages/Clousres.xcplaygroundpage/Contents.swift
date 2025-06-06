@@ -128,3 +128,23 @@ let addition = {(a, b) -> Int in
 }
 let sum1 = addition(3,2)
 print(sum1)
+
+let printMsg: (String) -> String = {
+    msg in return msg
+}
+print(printMsg("Greetings"))
+
+let printName = {(name: String) -> String in
+   return "HELLO \(name)"
+}
+print(printName("Soumya"))
+
+let addition1 = {(a: Int, b: Int) -> Int in
+    return a + b
+}
+print(addition1(3, 4))
+
+let addition2: (Int, Int) -> Int = {
+    a,b in a + b
+}
+print(addition2(5, 5))

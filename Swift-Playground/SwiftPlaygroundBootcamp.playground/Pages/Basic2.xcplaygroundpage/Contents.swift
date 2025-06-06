@@ -211,3 +211,31 @@ print(result)
 let files = [[1, 2], [3, 4], []]
 let allFiles = files.flatMap { $0 }
 print(allFiles)
+
+/// Reversed String
+var str1 = "Hello"
+var reversed = ""
+
+for character in str1 {
+    reversed = "\(character)" + reversed
+}
+
+print("Original: \(str1)")
+print("Reversed: \(reversed)")
+
+/// Even number
+let arr = [1, 2, 3, 4, 5, 6, 7]
+for num in arr where num % 2  == 0 {
+    print(num)
+}
+
+/// Check whether the two values in the tuple point (x and y) are equal
+let point = (x: 2, y: 2)
+
+switch point {
+case let (x,y) where x == y:
+    print("x and y are equal")
+default:
+    print("x and y are not equal")
+}
+

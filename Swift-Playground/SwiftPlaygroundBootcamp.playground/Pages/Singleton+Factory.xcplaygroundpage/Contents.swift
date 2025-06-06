@@ -71,6 +71,8 @@ singleton.showMsg()
 /// Thread safety
 /// `Use caese`: Used in writing debug logs, capturing info only in debug mode, not interfering with business logic.
 /// `Singleton` ensures `only one instance` of the class is `used everywhere`.
+///
+/// `Factory Constructor:` return an exsiting instance instead of creating one
 
 struct UserInfo{
     var firstName: String

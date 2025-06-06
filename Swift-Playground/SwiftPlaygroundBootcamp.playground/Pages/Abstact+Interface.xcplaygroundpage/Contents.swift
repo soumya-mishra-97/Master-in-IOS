@@ -1,6 +1,6 @@
-// MARK: `OOPS`
 // MARK: `Abstract vs Interface`
-// MARK: `Abstract class` -> Used to be inheritance but never be instanciated directly.
+// MARK: `Abstract class` ->
+/// Used to be inheritance but never be instanciated directly.
 /// Supports  only non abstract methods
 /// Doesn't support multiple inheritence
 
