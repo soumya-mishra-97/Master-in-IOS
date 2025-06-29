@@ -92,7 +92,10 @@ greeter.greet()
    2. Protocol Extension – Add Default Behavior
       Provides default implementation to protocol methods so conforming types don’t always need to implement them. it's the optional not required methods.
    3. Protocol Composition – Supporst Multiple Inheritance -> One Suberclass has multiple children class
-   4. associatedtype Protocol - Define a placeholder in a protocol that will be specified by conforming types later.
+   4. associatedtype Protocol - An associatedtype is a placeholder type used in a protocol.
+      Protocols become generic - protocol can work with any type.
+      Reduces duplication - Avoids writing many similar protocols for different data types.
+      Enables abstraction - Works with different types without changing protocol code
  ``` protocol Animal {
      associatedtype FoodType
      func eat(_ food: FoodType)

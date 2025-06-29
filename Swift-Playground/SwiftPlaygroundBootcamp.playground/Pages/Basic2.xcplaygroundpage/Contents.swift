@@ -239,3 +239,27 @@ default:
     print("x and y are not equal")
 }
 
+
+/// Sorted Array
+func sortedArray(_ a: inout [Int]){
+    let count = a.count
+    guard count > 1 else {return}
+    
+    for i in 0..<count{
+        for j in 0..<count - i - 1{
+            let temp = a[j]
+            a[j] = a[j+1]
+            a[j+1] = temp
+        }
+    }
+    print(a)
+}
+
+var arr3 = [5,4,3,2,1]
+sortedArray(&arr3)
+
+for i in 1...3 {
+    for j in 1...2 {
+        print("i: \(i), j: \(j)")
+    }
+}

@@ -14,7 +14,7 @@ enum Direction {
     case west
 }
 let dir = Direction.north
-
+print(dir)
 
 // MARK: - Raw type
 /// Assign a constant primitive value (String, Int, etc.) to each case.

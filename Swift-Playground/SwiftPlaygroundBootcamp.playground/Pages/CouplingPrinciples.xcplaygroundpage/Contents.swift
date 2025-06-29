@@ -7,14 +7,14 @@ import Foundation
 /// Engine is a base class
 class Enginee {
     func start() {
-        print("Engine started")
+        print("Engine Started")
     }
 }
 
 /// GasEngine is a subclass of Engine
 class GasEngine: Enginee {
     override func start() {
-        print("Gas Engine started")
+        print("Gas Engine Started")
     }
 }
 
@@ -51,14 +51,14 @@ protocol Engine {
 /// Concrete implementation: GasEngine
 class LooselyCoupledGasEngine: Engine {
     func start() {
-        print("Gas Engine started")
+        print("Gas Engine Started")
     }
 }
 
 /// Concrete implementation: ElectricEngine
 class ElectricEngine: Engine {
     func start() {
-        print("Electric Engine started")
+        print("Electric Engine Started")
     }
 }
 

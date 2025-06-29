@@ -1,3 +1,36 @@
+// MARK: - Why is a convenience initializer used
+/// convenience initializers must call another initializer in the same class (self.init(...)) & Only used in classes (not structs)
+/// Create instances of a class, without duplicating logic already written in a designated initializer.
+/// To reuse and simplify initialization logic by calling the designated initializer from within the same class.
+/// Avoid code duplication  ->  You don't rewrite the same property setup in multiple inits
+/// Abstract complexity from initializer -> Keep main init logic in one place (designated), others just call it
+/// Improve API usability    Gives developers multiple ways to initialize an object cleanly
+/// They cannot directly initialize stored properties
+/// They are useful for code reuse, clarity, and flexibility
+class User {
+    var name: String
+    var age: Int
+
+    /// Designated initializer (required)
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+
+    /// Convenience initializer (calls designated one)
+    convenience init(name: String) {
+        self.init(name: name, age: 18) // default age
+    }
+
+    /// Another convenience initializer (no parameters)
+    convenience init() {
+        self.init(name: "Guest", age: 18)
+    }
+}
+let user1 = User(name: "Alice", age: 25) /// using designated initializer
+let user2 = User(name: "Bob")           /// uses convenience init with default age
+let user3 = User()                      /// uses convenience init with default name and age
+
 // MARK: - Foundation Framework in Swift
 /*
  The Foundation framework is one of Apple's core frameworks, providing essential data types, collections,
@@ -58,6 +91,3 @@
      print(savedContent)  // "Hello, file system!"
  }
 */
-
-
-

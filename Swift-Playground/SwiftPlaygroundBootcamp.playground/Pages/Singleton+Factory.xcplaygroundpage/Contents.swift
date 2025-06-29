@@ -1,4 +1,5 @@
 import UIKit
+import Foundation
 
 // MARK: Paalindrome or not
 func isPaalindrome(_ input: String) -> Bool {
@@ -33,10 +34,10 @@ print(b) /// [1, 2, 3, 4]
 class Singleton {
     /// Shared singleton instance
     static let shared = Singleton()
-
+    
     /// Private constructor prevents outside initialization
     private init() {}
-
+    
     func sayHello() {
         print("Hello, World from Singleton!")
     }
@@ -73,7 +74,8 @@ singleton.showMsg()
 /// `Singleton` ensures `only one instance` of the class is `used everywhere`.
 ///
 /// `Factory Constructor:` return an exsiting instance instead of creating one
-
+/// `Factory Designpattern:` Create the Objects without exposing instantialion logic.
+///  // Thread-safe by default in Swift
 struct UserInfo{
     var firstName: String
     var lastName: String
@@ -82,8 +84,8 @@ struct UserInfo{
 private var objectUserInfo: UserInfo?
 
 class SingletonUserInfo{
-    /// Provides a global, shared access point.
-    /// Creates a single, shared instance of the class.
+    /// `static let` is lazily initialized and initialized once only, even when accessed from multiple threads at the same time.
+    /// Initialization is handled atomically by the Swift runtime.
     static let shared = SingletonUserInfo()
     private init() {} /// Prevents external instantication
     
@@ -118,3 +120,105 @@ if let userInfo = user.getUser() {
 } else {
     print("No User Found")
 }
+
+
+// MARK: - Factory Design Pattern
+/// Control the creation of objects (return existing object)
+/// Used for the Abstract object creation means encapsulate complex initialization logic
+/// Best for the dependency injection
+
+
+/// Factory Pattern --- 1
+struct Report{
+    let id: UUID
+    let year: Int
+    let total: Double
+    
+    static func generateDummyReport() -> Array<Report>{
+        return [Report(id: UUID(), year: Int.random(in: 2015..<2024), total: Double.random(in: 2000..<5000)),
+                Report(id: UUID(), year: Int.random(in: 2015..<2024), total: Double.random(in: 2000..<5000))]
+    }
+}
+
+protocol ReportProtocol{
+    func getReport() -> Array<Report>
+}
+
+class TaxReport: ReportProtocol{
+    func getReport() -> Array<Report>{
+        print("Tax Report Fetching")
+        return Report.generateDummyReport()
+    }
+}
+
+class ProfitReport: ReportProtocol{
+    func getReport() -> Array<Report>{
+        print("Profit Report Fetching")
+        return Report.generateDummyReport()
+    }
+}
+
+enum ReportType{
+    case tax
+    case profit
+}
+
+class ReportFactory{
+    static func create(type: ReportType) -> ReportProtocol{
+        switch type{
+        case .tax:
+            TaxReport()
+        case .profit:
+            ProfitReport()
+        }
+    }
+}
+
+class ReportViewModel{
+    
+    private let reportPR: ReportProtocol
+    
+    init(_report: ReportProtocol){
+        reportPR = _report
+    }
+    
+    func getReport() -> Array<Report>{
+        let reportFC = ReportFactory.create(type: .tax)
+        return reportFC.getReport()
+    }
+}
+
+let reportVM = ReportViewModel(_report: ReportFactory.create(type: .tax))
+reportVM.getReport()
+
+/// Factory Pattern --- 2
+protocol Vehicle {
+    func start()
+}
+
+class Car: Vehicle {
+    func start() { print("Car started") }
+}
+
+class Bike: Vehicle {
+    func start() { print("Bike started") }
+}
+
+enum VehicleType {
+    case car, bike
+}
+
+class VehicleFactory {
+    static func create(type: VehicleType) -> Vehicle {
+        switch type {
+        case .car:
+            return Car()
+        case .bike:
+            return Bike()
+        }
+    }
+}
+
+let vehicle = VehicleFactory.create(type: .bike)
+vehicle.start()
+

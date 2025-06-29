@@ -15,9 +15,27 @@ let addResult = addTwoNumber(10, 20)
 print(addResult)
 
 // MARK: Default Clousure [NonEscaping]
-/// Self contained block of functionality without using func keyword
-/// Smaller syntax and used to handle the heavy opertation
-/// Usecases: network calling, async task
+/// Best for the One time Event handlers
+///  Use non-escaping for synchronous, immediate actions.
+/// Why it’s non-escaping:
+/// The closure is executed within the function.
+/// Capturing self -> No need for [weak self]
+
+// MARK: Escaping Clousure
+/// It’s not stored or called later.
+/// You're storing the closure
+/// Executing it after delay/async task
+/// It's a completion handler
+/// Capturing self -> Must use [weak self] or [unowned self]
+
+// MARK: `Autoclousre` -> You can avoid the clousure syntax with the help of using autoclousure expression
+/// Wraps the expression inside a clousure
+/// You can pass the arguments without using `{}`
+/// Use @autoclosure anotation
+/// Used to delayed the execution
+/// But it's hanrd to undertsnad that's why you can avoid it. impacts the readability.
+/// As a developer if i first time see the autoclousure it's looking as a just paramters but it's a clousure that's wy littlebit confused on that basis.
+
 /// `Define parameters` -> `Return type` -> Define `body` ->`in` -> tells swift compiler to excute the logic part
 /// after `in` returns the logic
 ///
@@ -148,3 +166,14 @@ let addition2: (Int, Int) -> Int = {
     a,b in a + b
 }
 print(addition2(5, 5))
+
+/// Trailing Closure
+/// It's a closure written outside the parentheses of a function call, especially useful when the closure is the last argument
+func greet(action: () -> Void){
+    action()
+}
+
+greet {
+    print("Trailing Clousure")
+}
+
