@@ -135,3 +135,93 @@ greeter.greet()
  Always remove the observer to prevent memory leaks:
  Or remove all observers in deinit:
  */
+
+/// MARK: - Protocol Programming
+protocol Vechile {
+    func startEngine()
+    func stopEngine()
+    func applyBrakes()
+    func drive()
+}
+
+struct Audi: Vechile {
+    func startEngine() {
+        print("Audi engine started.")
+    }
+    
+    func stopEngine() {
+        print("Audi engine stopped.")
+    }
+    
+    func applyBrakes() {
+        print("Breaks applied for Audi")
+    }
+    
+    func drive() {
+        print("Driving Audi")
+    }
+}
+
+struct Ferrari: Vechile {
+    func startEngine() {
+        print("Ferrari engine started.")
+    }
+    
+    func stopEngine() {
+        print("Ferrari engine stopped.")
+    }
+    
+    func applyBrakes() {
+        print("Breaks applied for Ferrari")
+    }
+    
+    func drive() {
+        print("Driving Ferrari")
+    }
+}
+
+class Person1{
+    func rideVechile(_ vechile: Vechile){
+        vechile.startEngine()
+    }
+}
+
+var objAudi = Audi()
+var objFerrari = Ferrari()
+
+var objPerson = Person1()
+objPerson.rideVechile(objAudi)
+
+/// MARK: - Delegate Pattern
+protocol ResultDelegate: AnyObject {
+    func didGetResult(_ result: Int)
+}
+
+class Developer{
+    var managerReference: ResultDelegate?
+    
+    func developerWillAddTwoNumber(a: Int, b: Int){
+        var result = a + b
+        managerReference?.didGetResult(result)
+    }
+}
+
+class Manager: ResultDelegate{
+    var developer: Developer?
+    
+    init(_developer: Developer) {
+        developer = _developer
+        developer?.managerReference = self
+    }
+    
+    func didGetResult(_ result: Int) {
+        debugPrint("Result of addition \(result)")
+    }
+    
+    func addTwoNumber(a: Int, b: Int){
+        developer?.developerWillAddTwoNumber(a: a, b: b)
+    }
+}
+
+var objectManager = Manager(_developer: Developer())
+objectManager.addTwoNumber(a: 10, b: 20)
