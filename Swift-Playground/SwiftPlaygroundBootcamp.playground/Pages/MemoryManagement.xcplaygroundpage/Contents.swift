@@ -41,3 +41,58 @@ unowned var uPerson = sPerson1!
 print("Before object nil: \(uPerson.name)") /// Soumya
 sPerson1 = nil /// Person deinitialized
 // print("After object nil: \(uPerson.name)") /// Runtime Crash
+
+// MARK: - Circular Reference
+/// Circular reference also called a retain cycle.
+/// When two or more objects hold strong references to each other, so neither gets deallocated,
+/// It causing a memory leak.
+/// Classes are reference types
+/// If Object A holds strong reference to B, and B holds strong reference to A, they both stay alive forever
+/// This is not a problem with value types like struct or enum
+class Owner {
+    var name: String
+    var pet: Pet?
+    
+    init(name: String) {
+        self.name = name
+        print("Owner created")
+    }
+    
+    deinit {
+        print("Owner deinitialized")
+    }
+}
+
+class Pet {
+    unowned var owner: Owner
+    
+    init(owner: Owner) {
+        self.owner = owner
+        print("Pet created")
+    }
+    
+    deinit {
+        print("Pet deinitialized")
+    }
+}
+
+var steve: Owner? = Owner(name: "Steve")
+var dog: Pet? = Pet(owner: steve!)
+
+steve?.pet = dog
+
+steve = nil /// When steve = nil, the Owner instance is deallocated But dog!.owner is still pointing to that memory.
+
+/// Unowned case
+/// When you do dog!.owner.name, you're accessing deallocated memory → this causes a runtime crash (EXC_BAD_ACCESS).
+/// print(dog?.owner.name ?? "")
+
+/// Weak case you can give the default value if the object became nil
+/// print(dog?.owner?.name ?? "Nil")
+
+dog = nil
+
+/// Unowned is a non-owning reference.
+/// When steve = nil, the Owner instance is deallocated.
+/// But dog!.owner is still pointing to that memory.
+/// When you do dog!.owner.name, you're accessing deallocated memory → this causes a runtime crash (EXC_BAD_ACCESS).

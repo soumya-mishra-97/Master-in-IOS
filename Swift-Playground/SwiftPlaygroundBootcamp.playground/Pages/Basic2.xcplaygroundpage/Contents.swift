@@ -3,8 +3,8 @@ import Foundation
 /// `Tuples`
 /// If you have `multiple separate of data` so `tuples` easily `combined` them and `return` it from a `function`
 /// Usecaes: `Data grouping`
-let userDetails: (String, Int, Bool) = ("Alice", 28, true)
-print(userDetails.0) /// Alice
+let userDetails: (String, Int, Bool) = ("Soumya", 28, true)
+print(userDetails.0) /// Soumya
 print(userDetails.1) /// 28
 print(userDetails.2) /// true
 
@@ -263,3 +263,29 @@ for i in 1...3 {
         print("i: \(i), j: \(j)")
     }
 }
+
+/// Reverse words
+func reverseWordsHO(_ sentence: String) -> String {
+    return sentence
+        .split(separator: " ")
+        .reversed()
+        .joined(separator: " ")
+}
+
+let input = "Swift is awesome"
+print(reverseWordsHO(input))
+
+/*
+ Form arrayC with all the elements of given arrayA and arrayB. arrayC should not have duplicates and should be sorted in Ascending order.
+ let arrayA = [19, 11, 13, 15, 17]
+ let arrayB = [19, 13, 17, 23, 29]
+  
+ Expected output: [11, 13, 15, 17, 19, 23, 29]
+ */
+
+let arrayA = [19, 11, 13, 15, 17]
+let arrayB = [19, 13, 17, 23, 29]
+
+var arrayC = Set(arrayA + arrayB).sorted()
+
+print(arrayC)

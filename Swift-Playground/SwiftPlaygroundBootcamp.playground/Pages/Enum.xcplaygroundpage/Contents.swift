@@ -7,7 +7,7 @@
 /// Use `associated value:` enums when each case needs to carry extra, custom information.
 /// Enums make your Swift code type-safe, readable, and robust.
 
-enum Direction {
+enum Direction: String {
     case north
     case south
     case east
@@ -20,25 +20,35 @@ print(dir)
 /// Assign a constant primitive value (String, Int, etc.) to each case.
 /// All cases must have the same raw value type.
 enum Day:String {
-  case day1 = "Monday"
-  case day2 = "Tuesday"
+    case day1 = "Monday"
+    case day2 = "Tuesday"
 }
+
+func printWeekday(in day: Day){
+    switch day{
+    case .day1:
+        print(day.rawValue)
+    case .day2:
+        print(day.rawValue)
+    }
+}
+
+printWeekday(in: Day.day1)
 
 // MARK: - Associate type
 /// Each case can hold custom associated data (like a tuple).
 /// Different cases can hold different types of data.
 enum Month{
-    case January(day: Int)
-    case February(day: Int)
+    case january(day: Int)
+    case february(day: Int)
 }
 
-let jan = Month.January(day: 31)
+let jan = Month.january(day: 31)
 
 func printDay(in month: Month){
-    switch month {
-    case .January(let day),
-            .February(let day):
-       print(day)
+    switch month{
+    case .january(let day),
+            .february(let day) : print(day)
     }
 }
 

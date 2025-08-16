@@ -35,7 +35,17 @@ func greet(){
 greet()
 
 // MARK: Optional Chaining
-/// Optional chaining allows you to call properties, methods, and subscripts on optional values. It only works if the optional is not nil, and it will return nil if the optional is nil.
+/// Optional chaining allows you to call properties, methods, and subscripts on optional values.
+/// It only works if the optional is not nil, and it will return nil if the optional is nil.
 let count = name?.count
 print(count ?? 0)
 
+let productItem: String? = "IPhone"
+let uppercasedName = productItem?.uppercased()
+print(uppercasedName ?? "NA") // Optional("IPhone")
+/*
+ Explain:
+ productItem is an optional string (String?).
+ productItem?.uppercased() uses optional chaining to safely call the uppercased() method only if name is not nil.
+ If productItem were nil, uppercasedName would also be nil, and no crash would occur.
+*/

@@ -16,16 +16,20 @@ print(addResult)
 
 // MARK: Default Clousure [NonEscaping]
 /// Best for the One time Event handlers
-///  Use non-escaping for synchronous, immediate actions.
+/// Use non-escaping for synchronous, immediate actions.
 /// Why it’s non-escaping:
+/// The closure must be executed before the function returns.
 /// The closure is executed within the function.
 /// Capturing self -> No need for [weak self]
 
 // MARK: Escaping Clousure
-/// It’s not stored or called later.
-/// You're storing the closure
-/// Executing it after delay/async task
-/// It's a completion handler
+/// Marked with @escaping.
+/// Closure stored to be executed later.
+/// Execute the asynchronous tasks (e.g., network calls).
+
+/// It having completion handler ->  completion handler is usually @escaping
+/// completion is executed after async functionreturns.
+/// Closure that is called when a task finishes
 /// Capturing self -> Must use [weak self] or [unowned self]
 
 // MARK: `Autoclousre` -> You can avoid the clousure syntax with the help of using autoclousure expression
@@ -177,3 +181,36 @@ greet {
     print("Trailing Clousure")
 }
 
+// MARK: - Avoid the Retain Cycle Explanation in this code using [weak self]
+/// Yes, it will cause retain cycle.
+/// Let's assume content view owns this content view model, ContentView retains ContentItemViewModel.
+/// when you navigate back from content view to previous view,
+/// Content view will not be released until the api(getItems()) returns the value
+/// Closure inside getItems captures self (ViewModel) strongly — causes retain cycle if not handled.
+/// [weak self] avoids this by not retaining the ViewModel inside the closure.
+/// Safe: If the view is dismissed and the ViewModel deallocated, the closure does nothing (since self is nil)
+
+class ContentService{
+    func getItems(completion: @escaping ([String]) -> Void){
+        DispatchQueue.global().asyncAfter(deadline: .now() + 1){
+            let mockItems = ["Item 1", "Item 2", "Item 3"]
+            completion(mockItems)
+        }
+    }
+}
+
+final class ContentItemViewModel: ObservableObject {
+    @Published var items: [String] = []
+    
+    func fetchItems() {
+        ContentService().getItems { [weak self] items in
+            DispatchQueue.main.async {
+                self?.items = items
+                print("Fetched items: \(items)")
+            }
+        }
+    }
+}
+
+var vm = ContentItemViewModel()
+vm.fetchItems()
